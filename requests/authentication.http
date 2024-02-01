@@ -1,0 +1,24 @@
+@api = http://localhost:8000/auth
+
+### Health Check
+GET http://localhost:8000/healthcheck
+
+### Register User
+POST {{api}}/register
+Content-Type: application/json
+
+{
+    "username": "KrizMarles",
+    "email": "kriz@yopmail.com",
+    "password": "kriz_pass"
+}
+
+
+### Login
+POST {{api}}/login
+Content-Type: application/json
+
+{
+    "email": "kriz@yopmail.com",
+    "password": "kriz_pass"
+}
