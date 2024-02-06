@@ -1,8 +1,7 @@
-import express from 'express';
-
+import { Handler } from 'express';
 import { deleteUserById, getUsers, getUserById } from '../db/users';
 
-export const getAllUsers = async (req: express.Request, res: express.Response) => {
+export const getAllUsers: Handler = async (req, res) => {
   try {
     const users = await getUsers();
 
@@ -13,7 +12,7 @@ export const getAllUsers = async (req: express.Request, res: express.Response) =
   }
 };
 
-export const deleteUser = async (req: express.Request, res: express.Response) => {
+export const deleteUser: Handler = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -26,7 +25,7 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
   }
 }
 
-export const updateUser = async (req: express.Request, res: express.Response) => {
+export const updateUser: Handler = async (req, res) => {
   try {
     const { id } = req.params;
     const { username } = req.body;

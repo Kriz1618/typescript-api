@@ -1,0 +1,12 @@
+@api = http://localhost:8001/users
+@token = ""
+
+### Health Check
+GET http://localhost:8001/healthcheck
+
+
+### Get Users
+GET {{api}}
+Content-Type: application/json
+Set-Cookie: TOKEN-AUTH={{token}}
+

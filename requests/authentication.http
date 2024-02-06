@@ -1,7 +1,7 @@
-@api = http://localhost:8000/auth
+@api = http://localhost:8001/auth
 
 ### Health Check
-GET http://localhost:8000/healthcheck
+GET http://localhost:8001/healthcheck
 
 ### Register User
 POST {{api}}/register
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "username": "KrizMarles",
-    "email": "kriz@yopmail.com",
+    "email": "kriz@gmail.com",
     "password": "kriz_pass"
 }
 
@@ -19,6 +19,6 @@ POST {{api}}/login
 Content-Type: application/json
 
 {
-    "email": "kriz@yopmail.com",
+    "email": "kriz@gmail.com",
     "password": "kriz_pass"
 }
