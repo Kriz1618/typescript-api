@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { CreateUser, IUser } from "types/general";
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -18,6 +19,6 @@ export const getUserBySessionToken = (sessionToken: string) => UserModel.findOne
   'authenticationSession.sessionToken': sessionToken,
 });
 export const getUserById = (id: string) => UserModel.findById(id);
-export const createUser = (values: Record<string, any>) => new UserModel(values).save().then((user) => user.toObject());
+export const createUser: CreateUser = (values) => new UserModel(values).save().then((user) => user.toObject());
 export const deleteUserById = (id: string) => UserModel.findOneAndDelete({ _id: id });
-export const updateUserById = (id: string, values: Record<string, any>) => UserModel.findByIdAndUpdate(id, values);
+export const updateUserById = (id: string, values: IUser) => UserModel.findByIdAndUpdate(id, values);

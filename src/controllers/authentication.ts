@@ -1,9 +1,8 @@
-import express from 'express';
-
+import { Handler } from 'express';
 import { getUserByEmail, createUser } from '../db/users';
 import { authentication, random } from '../helpers';
 
-export const login = async (req: express.Request, res: express.Response) => {
+export const login: Handler = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -14,7 +13,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     const user = await getUserByEmail(email).select('+authentication.salt +authentication.password');
 
     if (!user) {
-      return res.sendStatus(400);
+      return res.status(400).json({ error: 'User not found' });
     }
 
     const expectedHash = authentication(user.authentication.salt, password);
@@ -28,7 +27,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     await user.save();
 
-    res.cookie('TOKEN', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
+    res.cookie('TOKEN-AUTH', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
 
     return res.status(200).json(user).end();
   } catch (error) {
@@ -37,7 +36,7 @@ export const login = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export const register = async (req: express.Request, res: express.Response) => {
+export const register: Handler = async (req, res) => {
   try {
     const { email, password, username } = req.body;
 
@@ -48,7 +47,8 @@ export const register = async (req: express.Request, res: express.Response) => {
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
-      return res.sendStatus(400);
+      return res.status(400).json({
+        error: `An user with the email ${email} is already registered.` });
     }
 
     const salt = random();
